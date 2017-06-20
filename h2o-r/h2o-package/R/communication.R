@@ -159,7 +159,7 @@
     #can then be brought back into R as a raw vector and then used in different ways, e.g. uncompressed
     #with the Rcompression package, or written to a file via writeBin. We can also convert the raw vector to of type
     #character.
-    tmp <- tryCatch(curlPerform(url = url,
+    tmp <- tryCatch(curlPerform(url = URLencode(url),
                                   customrequest = method,
                                   writefunction = write,
                                   headerfunction = h$update,
