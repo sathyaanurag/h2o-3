@@ -214,13 +214,13 @@ public class XGBoostModel extends Model<XGBoostModel, XGBoostModel.XGBoostParame
         if (p._tree_method == XGBoostParameters.TreeMethod.exact) {
           Log.info("Using grow_gpu (exact) updater.");
           params.put("tree_method", "exact");
-//          params.put("updater", "grow_gpu");
+          params.put("updater", "grow_gpu");
         }
         else {
           Log.info("Using grow_gpu_hist (approximate) updater.");
           params.put("max_bin", p._max_bin);
           params.put("tree_method", "exact");
-//          params.put("updater", "grow_gpu_hist");
+          params.put("updater", "grow_gpu_hist");
         }
       } else {
         Log.info("No GPU (gpu_id: "+p._gpu_id + ") found. Using CPU backend.");
