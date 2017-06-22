@@ -40,18 +40,16 @@ public class ModelBuilderHandler<B extends ModelBuilder, S extends ModelBuilderS
     // User specified key, or make a default?
     String model_id = parms.getProperty("model_id");
     String warningStr = null;
-    boolean modifiedModelID = false;
     if ((model_id != null) && (model_id.contains("/"))) { // found / in model_id, replace with _ and set warning
       String tempName = model_id;
       model_id = model_id.replaceAll("/", "_");
       warningStr = "Bad model_id: slash (/) found and replaced with _.  " + "Original model_id "+tempName +
               " is now "+model_id+".";
       Log.warn("model_id", warningStr);
-      modifiedModelID = true;
     }
     Key<Model> key = doTrain ? (model_id==null ? ModelBuilder.defaultKey(algoName) : Key.<Model>make(model_id)) : null;
     // Default Job for just this training
-    Job job = doTrain ? (modifiedModelID ? new Job<>(key,ModelBuilder.javaName(algoURLName),algoName, warningStr) :
+    Job job = doTrain ? (warningStr==null ? new Job<>(key,ModelBuilder.javaName(algoURLName),algoName, warningStr) :
             new Job<>(key,ModelBuilder.javaName(algoURLName),algoName)) : null;
     // ModelBuilder
     B builder = ModelBuilder.make(algoURLName,job,key);
